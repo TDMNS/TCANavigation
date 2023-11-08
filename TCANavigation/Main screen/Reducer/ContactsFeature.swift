@@ -20,13 +20,11 @@ struct ContactsFeature: Reducer {
         case deleteButtonTapped(id: Contact.ID)
         
         enum Alert: Equatable {
-            /// Единственный выбор в оповещении — отменить или подтвердить удаление, но нам не нужно моделировать действие отмены. Это будет обработано автоматически за нас.
             case confirmDeletion(id: Contact.ID)
         }
     }
     
     var body: some ReducerOf<Self> {
-        /// Теперь наша модель определена более кратко, и во время компиляции у нас есть гарантии того, что одновременно может быть активен только один пункт назначения (либо алерт, либо sheet).
         Reduce { state, action in
             switch action {
             case .addButtonTapped:
@@ -75,7 +73,6 @@ extension ContactsFeature {
         }
         
         var body: some ReducerOf<Self> {
-            /// Scope reducer нужен чтобы сосредоточиться на области действия reducer-а.
             Scope(state: /State.addContact, action: /Action.addContact) {
                 AddContactFeature()
             }
