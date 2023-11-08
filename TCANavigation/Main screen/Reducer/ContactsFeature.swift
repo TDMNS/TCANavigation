@@ -20,13 +20,11 @@ struct ContactsFeature: Reducer {
     }
     
     var body: some ReducerOf<Self> {
-        /// Слишком громоздко создавать действие делегата только для того, чтобы сообщить об скрытии представления родителю, поэтому в библиотеке есть специальный инструмент для этого.
         Reduce { state, action in
             switch action {
             case .addButtonTapped:
                 state.addContact = AddContactFeature.State.init(contact: Contact(id: UUID(), name: ""))
                 return .none
-            /// Удаляем логику с отменой представления, и ее занилением. Об этом позаботится библиотека :)
             case let .addContact(.presented(.delegate(.saveContact(contact)))):
                 state.contacts.append(contact)
                 return .none

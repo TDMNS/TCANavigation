@@ -23,7 +23,6 @@ struct AddContactFeature: Reducer {
         }
     }
     
-    /// Зависимость отклонения является асинхронной, следовательно, ее можно вызывать только из эффекта.
     @Dependency(\.dismiss) var dismiss
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
