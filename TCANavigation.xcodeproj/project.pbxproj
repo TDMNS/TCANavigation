@@ -16,7 +16,18 @@
 		48D1B10C2AFBA07D005DDD82 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B10B2AFBA07D005DDD82 /* Contact.swift */; };
 		48D1B1112AFBB7BB005DDD82 /* AddContactFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1102AFBB7BB005DDD82 /* AddContactFeature.swift */; };
 		48D1B1132AFBB8EA005DDD82 /* AddContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1122AFBB8EA005DDD82 /* AddContactView.swift */; };
+		48D1B1322AFBEA0D005DDD82 /* ContactsFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1312AFBEA0D005DDD82 /* ContactsFeatureTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		48D1B12C2AFBE9EB005DDD82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48D1B0E72AFB9F17005DDD82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 48D1B0EE2AFB9F17005DDD82;
+			remoteInfo = TCANavigation;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		48D1B0EF2AFB9F17005DDD82 /* TCANavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCANavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +39,8 @@
 		48D1B10B2AFBA07D005DDD82 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		48D1B1102AFBB7BB005DDD82 /* AddContactFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactFeature.swift; sourceTree = "<group>"; };
 		48D1B1122AFBB8EA005DDD82 /* AddContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactView.swift; sourceTree = "<group>"; };
+		48D1B1282AFBE9EB005DDD82 /* TCANavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TCANavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		48D1B1312AFBEA0D005DDD82 /* ContactsFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsFeatureTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +52,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		48D1B1252AFBE9EB005DDD82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -46,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				48D1B0F12AFB9F17005DDD82 /* TCANavigation */,
+				48D1B1292AFBE9EB005DDD82 /* TCANavigationTests */,
 				48D1B0F02AFB9F17005DDD82 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				48D1B0EF2AFB9F17005DDD82 /* TCANavigation.app */,
+				48D1B1282AFBE9EB005DDD82 /* TCANavigationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +175,14 @@
 			path = Reducer;
 			sourceTree = "<group>";
 		};
+		48D1B1292AFBE9EB005DDD82 /* TCANavigationTests */ = {
+			isa = PBXGroup;
+			children = (
+				48D1B1312AFBEA0D005DDD82 /* ContactsFeatureTests.swift */,
+			);
+			path = TCANavigationTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,6 +206,24 @@
 			productReference = 48D1B0EF2AFB9F17005DDD82 /* TCANavigation.app */;
 			productType = "com.apple.product-type.application";
 		};
+		48D1B1272AFBE9EB005DDD82 /* TCANavigationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48D1B12E2AFBE9EB005DDD82 /* Build configuration list for PBXNativeTarget "TCANavigationTests" */;
+			buildPhases = (
+				48D1B1242AFBE9EB005DDD82 /* Sources */,
+				48D1B1252AFBE9EB005DDD82 /* Frameworks */,
+				48D1B1262AFBE9EB005DDD82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				48D1B12D2AFBE9EB005DDD82 /* PBXTargetDependency */,
+			);
+			name = TCANavigationTests;
+			productName = TCANavigationTests;
+			productReference = 48D1B1282AFBE9EB005DDD82 /* TCANavigationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,6 +236,11 @@
 				TargetAttributes = {
 					48D1B0EE2AFB9F17005DDD82 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					48D1B1272AFBE9EB005DDD82 = {
+						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1500;
+						TestTargetID = 48D1B0EE2AFB9F17005DDD82;
 					};
 				};
 			};
@@ -208,6 +261,7 @@
 			projectRoot = "";
 			targets = (
 				48D1B0EE2AFB9F17005DDD82 /* TCANavigation */,
+				48D1B1272AFBE9EB005DDD82 /* TCANavigationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -219,6 +273,13 @@
 			files = (
 				48D1B0FA2AFB9F18005DDD82 /* Preview Assets.xcassets in Resources */,
 				48D1B0F72AFB9F18005DDD82 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		48D1B1262AFBE9EB005DDD82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +299,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		48D1B1242AFBE9EB005DDD82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48D1B1322AFBEA0D005DDD82 /* ContactsFeatureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		48D1B12D2AFBE9EB005DDD82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 48D1B0EE2AFB9F17005DDD82 /* TCANavigation */;
+			targetProxy = 48D1B12C2AFBE9EB005DDD82 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		48D1B0FB2AFB9F18005DDD82 /* Debug */ = {
@@ -418,6 +495,45 @@
 			};
 			name = Release;
 		};
+		48D1B12F2AFBE9EB005DDD82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JJ624BWUC6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tdmns.TCANavigationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TCANavigation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TCANavigation";
+			};
+			name = Debug;
+		};
+		48D1B1302AFBE9EB005DDD82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JJ624BWUC6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tdmns.TCANavigationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TCANavigation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TCANavigation";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -435,6 +551,15 @@
 			buildConfigurations = (
 				48D1B0FE2AFB9F18005DDD82 /* Debug */,
 				48D1B0FF2AFB9F18005DDD82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48D1B12E2AFBE9EB005DDD82 /* Build configuration list for PBXNativeTarget "TCANavigationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48D1B12F2AFBE9EB005DDD82 /* Debug */,
+				48D1B1302AFBE9EB005DDD82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
