@@ -18,7 +18,9 @@ import ComposableArchitecture
                     Contact(id: UUID(), name: "Арсений")
                 ]), reducer: {
                     ContactsFeature()
-                }))
+                }
+        )
+    )
 }
 
 struct ContactsView: View {
@@ -29,7 +31,18 @@ struct ContactsView: View {
             WithViewStore(store, observe: \.contacts) { viewStore in
                 List {
                     ForEach(viewStore.state) { contact in
-                        Text(contact.name)
+                        HStack {
+                            Text(contact.name)
+                            
+                            Spacer()
+                            
+                            Button {
+                                viewStore.send(.deleteButtonTapped(id: contact.id))
+                            } label: {
+                                Image(systemName: "trash")
+                                    .foregroundStyle(.red)
+                            }
+                        }
                     }
                 }
                 .navigationTitle("Contacts")
@@ -44,12 +57,22 @@ struct ContactsView: View {
                 }
             }
         }
-        .sheet(store: store.scope(
-            state: \.$addContact,
-            action: { .addContact($0) })) { addContactStore in
-                NavigationStack {
-                    AddContactView(store: addContactStore)
-                }
+        .sheet(
+            store: store.scope(
+                state: \.$addContact,
+                action: { .addContact($0) }
+            )
+        ) { addContactStore in
+            NavigationStack {
+                AddContactView(store: addContactStore)
             }
+        }
+        .alert(
+            store: store.scope(
+                state: \.$alert,
+                action: { .alert($0) }
+            )
+        )
+
     }
 }
