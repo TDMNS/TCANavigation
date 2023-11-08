@@ -44,7 +44,6 @@ struct ContactsView: View {
                 }
             }
         }
-        /// Навигация осуществляется при помощи стандартного .sheet, только вместо binding-в используем store.
         .sheet(store: store.scope(
             state: \.$addContact,
             action: { .addContact($0) })) { addContactStore in
