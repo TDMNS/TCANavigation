@@ -10,15 +10,13 @@ import Foundation
 
 struct ContactsFeature: Reducer {
     struct State: Equatable {
-        @PresentationState var addContact: AddContactFeature.State?
-        @PresentationState var alert: AlertState<Action.Alert>?
+        @PresentationState var destination: Destination.State?
         var contacts: IdentifiedArrayOf<Contact> = []
     }
     
     enum Action: Equatable {
         case addButtonTapped
-        case addContact(PresentationAction<AddContactFeature.Action>)
-        case alert(PresentationAction<Alert>)
+        case destination(PresentationAction<Destination.Action>)
         case deleteButtonTapped(id: Contact.ID)
         
         enum Alert: Equatable {
@@ -28,35 +26,59 @@ struct ContactsFeature: Reducer {
     }
     
     var body: some ReducerOf<Self> {
+        /// Теперь наша модель определена более кратко, и во время компиляции у нас есть гарантии того, что одновременно может быть активен только один пункт назначения (либо алерт, либо sheet).
         Reduce { state, action in
             switch action {
             case .addButtonTapped:
-                state.addContact = AddContactFeature.State.init(contact: Contact(id: UUID(), name: ""))
+                state.destination = .addContact(
+                    AddContactFeature.State(contact: Contact(id: UUID(), name: ""))
+                )
                 return .none
-            case let .addContact(.presented(.delegate(.saveContact(contact)))):
+            case let .destination(.presented(.addContact(.delegate(.saveContact(contact))))):
                 state.contacts.append(contact)
                 return .none
-            case .addContact:
-                return .none
-            case let .alert(.presented(.confirmDeletion(id: id))):
+            case let .destination(.presented(.alert(.confirmDeletion(id: id)))):
                 state.contacts.remove(id: id)
                 return .none
-            case .alert:
+            case .destination:
                 return .none
             case let .deleteButtonTapped(id: id):
-                state.alert = AlertState {
-                    TextState("Are you shure?")
-                } actions: {
-                    ButtonState(role: .destructive, action: .confirmDeletion(id: id)) {
-                        TextState("Delete")
+                state.destination = .alert(
+                    AlertState {
+                        TextState("Are you shure?")
+                    } actions: {
+                        ButtonState(role: .destructive, action: .confirmDeletion(id: id)) {
+                            TextState("Delete")
+                        }
                     }
-                }
+                )
                 return .none
             }
         }
-        .ifLet(\.$addContact, action: /Action.addContact) {
-            AddContactFeature()
+        .ifLet(\.$destination, action: /Action.destination) {
+            Destination()
         }
-        .ifLet(\.$alert, action: /Action.alert)
+    }
+}
+
+extension ContactsFeature {
+    /// Роутер отвечающий за навигацию
+    struct Destination: Reducer {
+        enum State: Equatable {
+            case addContact(AddContactFeature.State)
+            case alert(AlertState<ContactsFeature.Action.Alert>)
+        }
+        
+        enum Action: Equatable {
+            case addContact(AddContactFeature.Action)
+            case alert(ContactsFeature.Action.Alert)
+        }
+        
+        var body: some ReducerOf<Self> {
+            /// Scope reducer нужен чтобы сосредоточиться на области действия reducer-а.
+            Scope(state: /State.addContact, action: /Action.addContact) {
+                AddContactFeature()
+            }
+        }
     }
 }
