@@ -8,7 +8,6 @@
 import ComposableArchitecture
 import Foundation
 
-/// Это не идеальный вариант, поскольку может привести к тому, что родительский объект будет делать предположения о том, какую логику он должен выполнять, когда что-то происходит в дочернем объекте. Лучше использовать так называемые «delegate actions» для дочерней фичи, чтобы напрямую сообщать родительской, что она хочет сделать.
 struct ContactsFeature: Reducer {
     struct State: Equatable {
         @PresentationState var addContact: AddContactFeature.State?
@@ -21,24 +20,20 @@ struct ContactsFeature: Reducer {
     }
     
     var body: some ReducerOf<Self> {
-        /// обновим редуктор для прослушивания действий делегата и определения того, когда пора отклонить или сохранить контакт.
+        /// Слишком громоздко создавать действие делегата только для того, чтобы сообщить об скрытии представления родителю, поэтому в библиотеке есть специальный инструмент для этого.
         Reduce { state, action in
             switch action {
             case .addButtonTapped:
                 state.addContact = AddContactFeature.State.init(contact: Contact(id: UUID(), name: ""))
                 return .none
-            case .addContact(.presented(.delegate(.cancel))):
-                state.addContact = nil
-                return .none
+            /// Удаляем логику с отменой представления, и ее занилением. Об этом позаботится библиотека :)
             case let .addContact(.presented(.delegate(.saveContact(contact)))):
                 state.contacts.append(contact)
-                state.addContact = nil
                 return .none
             case .addContact:
                 return .none
             }
         }
-        /// Приложение должно работать точно так же, как и до рефакторинга «delegate actions», но теперь дочерняя фича может точно описывать то, что она хочет от родительской, а не наоборот. Родительская больше не выстраивает предположение о том или ином действии.
         .ifLet(\.$addContact, action: /Action.addContact) {
             AddContactFeature()
         }

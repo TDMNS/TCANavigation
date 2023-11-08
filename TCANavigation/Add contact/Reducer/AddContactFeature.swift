@@ -7,7 +7,6 @@
 
 import ComposableArchitecture
 
-/// Для начала глянь в ContactFeature
 struct AddContactFeature: Reducer {
     struct State: Equatable {
         var contact: Contact
@@ -18,21 +17,25 @@ struct AddContactFeature: Reducer {
         case delegate(Delegate)
         case saveButtonTapped
         case setName(String)
-        /// Это перечисление будет описывать все действия, которые родитель может прослушивать и интерпретировать. Это позволяет дочерней фиче напрямую сообщать родительской фиче, что она хочет сделать.
+
         enum Delegate: Equatable {
-            case cancel
             case saveContact(Contact)
         }
     }
     
+    /// Зависимость отклонения является асинхронной, следовательно, ее можно вызывать только из эффекта.
+    @Dependency(\.dismiss) var dismiss
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case .cancelButtonTapped:
-            return .send(.delegate(.cancel))
+            return .run { _ in await dismiss() }
         case .delegate:
             return .none
         case .saveButtonTapped:
-            return .send(.delegate(.saveContact(state.contact)))
+            return .run { [contact = state.contact] send in
+                await send(.delegate(.saveContact(contact)))
+                await dismiss()
+            }
         case let .setName(name):
             state.contact.name = name
             return .none
