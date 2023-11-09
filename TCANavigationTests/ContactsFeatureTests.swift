@@ -35,27 +35,45 @@ final class ContactsFeatureTests: XCTestCase {
         await store.receive(.destination(.dismiss)) { $0.destination = nil }
     }
     
-    /// Код выше выглядит немного сложным. Что если попробовать написать немножко в другом стиле? В более упрощенном (неисчерпывающем).
-    /// Интересное примечание... почему-то разработчики TCA используют названия типа testAddFlow_NonExhaustive... Почему они используют underscore не понятно...
-    /// Может у вас есть идеи?
     func testAddFlowNonExhaustive() async {
         let store = TestStore(initialState: ContactsFeature.State()) {
             ContactsFeature()
         } withDependencies: {
             $0.uuid = .incrementing
         }
-        /// Отключаем исчерпываемость. В таких хранилищах нет необходимости предоставлять trailing clouse (если вы этого сами не захотите).
         store.exhaustivity = .off
         
         await store.send(.addButtonTapped)
         await store.send(.destination(.presented(.addContact(.setName("Эвелина")))))
         await store.send(.destination(.presented(.addContact(.saveButtonTapped))))
-        await store.skipReceivedActions() /// дожидаемся момент пока все действия не будут получены.
+        await store.skipReceivedActions()
         store.assert {
             $0.contacts = [Contact(id: UUID(0), name: "Эвелина")]
             $0.destination = nil
         }
     }
+    
+    func testDeleteContact() async {
+        let store = TestStore(
+            initialState: ContactsFeature.State(
+                contacts: [
+                    Contact(id: UUID(0), name: "Эвелина"),
+                    Contact(id: UUID(1), name: "Аркадий")
+                ]
+            )) {
+            ContactsFeature()
+        }
+        /// Заметили? Повторение функционала
+        await store.send(.deleteButtonTapped(id: UUID(1))) {
+            $0.destination = .alert(
+                AlertState {
+                    TextState("Are you shure?")
+                } actions: {
+                    ButtonState(role: .destructive, action: .confirmDeletion(id: UUID(1))) {
+                        TextState("Delete")
+                    }
+                }
+            )
+        }
+    }
 }
-
-/// Какой вариант читается лучше, и вам больше нравится?
