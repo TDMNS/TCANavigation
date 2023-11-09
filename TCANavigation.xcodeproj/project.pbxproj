@@ -17,6 +17,8 @@
 		48D1B1112AFBB7BB005DDD82 /* AddContactFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1102AFBB7BB005DDD82 /* AddContactFeature.swift */; };
 		48D1B1132AFBB8EA005DDD82 /* AddContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1122AFBB8EA005DDD82 /* AddContactView.swift */; };
 		48D1B1322AFBEA0D005DDD82 /* ContactsFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1312AFBEA0D005DDD82 /* ContactsFeatureTests.swift */; };
+		48D1B1382AFCFD73005DDD82 /* ContactDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1372AFCFD73005DDD82 /* ContactDetailFeature.swift */; };
+		48D1B13A2AFCFDDB005DDD82 /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B1392AFCFDDB005DDD82 /* ContactDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,8 @@
 		48D1B1122AFBB8EA005DDD82 /* AddContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactView.swift; sourceTree = "<group>"; };
 		48D1B1282AFBE9EB005DDD82 /* TCANavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TCANavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48D1B1312AFBEA0D005DDD82 /* ContactsFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsFeatureTests.swift; sourceTree = "<group>"; };
+		48D1B1372AFCFD73005DDD82 /* ContactDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailFeature.swift; sourceTree = "<group>"; };
+		48D1B1392AFCFDDB005DDD82 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				48D1B1002AFB9F7A005DDD82 /* Application */,
-				48D1B1022AFB9F91005DDD82 /* Main screen */,
-				48D1B10D2AFBB786005DDD82 /* Add contact */,
+				48D1B1342AFCFC18005DDD82 /* Screens */,
 				48D1B1012AFB9F84005DDD82 /* Resources */,
 				48D1B0F82AFB9F18005DDD82 /* Preview Content */,
 			);
@@ -116,14 +119,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		48D1B1022AFB9F91005DDD82 /* Main screen */ = {
+		48D1B1022AFB9F91005DDD82 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
 				48D1B10A2AFBA063005DDD82 /* Model */,
 				48D1B1032AFB9F9E005DDD82 /* View */,
 				48D1B1042AFB9FA4005DDD82 /* Reducer */,
 			);
-			path = "Main screen";
+			path = Contacts;
 			sourceTree = "<group>";
 		};
 		48D1B1032AFB9F9E005DDD82 /* View */ = {
@@ -181,6 +184,41 @@
 				48D1B1312AFBEA0D005DDD82 /* ContactsFeatureTests.swift */,
 			);
 			path = TCANavigationTests;
+			sourceTree = "<group>";
+		};
+		48D1B1332AFCFBF7005DDD82 /* Contact detail */ = {
+			isa = PBXGroup;
+			children = (
+				48D1B1352AFCFD4A005DDD82 /* View */,
+				48D1B1362AFCFD54005DDD82 /* Reducer */,
+			);
+			path = "Contact detail";
+			sourceTree = "<group>";
+		};
+		48D1B1342AFCFC18005DDD82 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				48D1B1022AFB9F91005DDD82 /* Contacts */,
+				48D1B1332AFCFBF7005DDD82 /* Contact detail */,
+				48D1B10D2AFBB786005DDD82 /* Add contact */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		48D1B1352AFCFD4A005DDD82 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				48D1B1392AFCFDDB005DDD82 /* ContactDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		48D1B1362AFCFD54005DDD82 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				48D1B1372AFCFD73005DDD82 /* ContactDetailFeature.swift */,
+			);
+			path = Reducer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +332,8 @@
 				48D1B1112AFBB7BB005DDD82 /* AddContactFeature.swift in Sources */,
 				48D1B0F52AFB9F17005DDD82 /* ContactsView.swift in Sources */,
 				48D1B1132AFBB8EA005DDD82 /* AddContactView.swift in Sources */,
+				48D1B13A2AFCFDDB005DDD82 /* ContactDetailView.swift in Sources */,
+				48D1B1382AFCFD73005DDD82 /* ContactDetailFeature.swift in Sources */,
 				48D1B0F32AFB9F17005DDD82 /* TCANavigationApp.swift in Sources */,
 				48D1B1062AFB9FC9005DDD82 /* ContactsFeature.swift in Sources */,
 			);

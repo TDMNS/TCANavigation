@@ -31,14 +31,14 @@ struct AddContactView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Form {
-                TextField("Name", text: viewStore.binding(get: \.contact.name, send: { .setName($0) }))
-                Button("Save") {
+                TextField("Имя", text: viewStore.binding(get: \.contact.name, send: { .setName($0) }))
+                Button("Сохранить") {
                     viewStore.send(.saveButtonTapped)
                 }
             }
             .toolbar {
                 ToolbarItem {
-                    Button("Cancel") {
+                    Button("Отмена") {
                         viewStore.send(.cancelButtonTapped)
                     }
                 }

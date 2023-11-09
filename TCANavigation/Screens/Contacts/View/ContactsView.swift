@@ -27,25 +27,27 @@ struct ContactsView: View {
     let store: StoreOf<ContactsFeature>
     
     var body: some View {
-        NavigationStack {
+        NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
             WithViewStore(store, observe: \.contacts) { viewStore in
                 List {
                     ForEach(viewStore.state) { contact in
-                        HStack {
-                            Text(contact.name)
-                            
-                            Spacer()
-                            
-                            Button {
-                                viewStore.send(.deleteButtonTapped(id: contact.id))
-                            } label: {
-                                Image(systemName: "trash")
-                                    .foregroundStyle(.red)
+                        NavigationLink(state: ContactDetailFeature.State(contact: contact)) {
+                            HStack {
+                                Text(contact.name)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    viewStore.send(.deleteButtonTapped(id: contact.id))
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .foregroundStyle(.red)
+                                }
                             }
-                        }
+                        }.buttonStyle(.borderless)
                     }
                 }
-                .navigationTitle("Contacts")
+                .navigationTitle("Контакты")
                 .toolbar {
                     ToolbarItem {
                         Button {
@@ -56,6 +58,8 @@ struct ContactsView: View {
                     }
                 }
             }
+        } destination: { store in
+            ContactDetailView(store: store)
         }
         .sheet(
             store: store.scope(state: \.$destination, action: { .destination($0) }),
