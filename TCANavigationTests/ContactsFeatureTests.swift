@@ -15,15 +15,11 @@ final class ContactsFeatureTests: XCTestCase {
         let store = TestStore(initialState: ContactsFeature.State()) {
             ContactsFeature()
         } withDependencies: {
-            /// Переопределение зависимости в хранилище тестов. Это нужно для того, чтобы оно использовало управляемый генератор UUID. В частности, мы будем использовать «инкрементирующий» генератор, который генерирует последовательные возрастающие идентификаторы, начиная с 0.
             $0.uuid = .incrementing
         }
-
         
-        /// В настоящее время ContactsFeature использует неконтролируемую зависимость, что очень затрудняет тестирование этой функции. При представлении этой функции он создает случайный UUID, и мы не можем предсказать этот идентификатор, чтобы пройти тест.
         await store.send(.addButtonTapped) {
             $0.destination = .addContact(
-                /// Тут мы используем инициализатор UUID, который позволяет предоставить целое число, предоставляется нашей библиотекой быстрых зависимостей, от которой зависит составная архитектура.
                 AddContactFeature.State(contact: Contact(id: UUID(0), name: ""))
             )
         }
@@ -38,4 +34,28 @@ final class ContactsFeatureTests: XCTestCase {
         }
         await store.receive(.destination(.dismiss)) { $0.destination = nil }
     }
+    
+    /// Код выше выглядит немного сложным. Что если попробовать написать немножко в другом стиле? В более упрощенном (неисчерпывающем).
+    /// Интересное примечание... почему-то разработчики TCA используют названия типа testAddFlow_NonExhaustive... Почему они используют underscore не понятно...
+    /// Может у вас есть идеи?
+    func testAddFlowNonExhaustive() async {
+        let store = TestStore(initialState: ContactsFeature.State()) {
+            ContactsFeature()
+        } withDependencies: {
+            $0.uuid = .incrementing
+        }
+        /// Отключаем исчерпываемость. В таких хранилищах нет необходимости предоставлять trailing clouse (если вы этого сами не захотите).
+        store.exhaustivity = .off
+        
+        await store.send(.addButtonTapped)
+        await store.send(.destination(.presented(.addContact(.setName("Эвелина")))))
+        await store.send(.destination(.presented(.addContact(.saveButtonTapped))))
+        await store.skipReceivedActions() /// дожидаемся момент пока все действия не будут получены.
+        store.assert {
+            $0.contacts = [Contact(id: UUID(0), name: "Эвелина")]
+            $0.destination = nil
+        }
+    }
 }
+
+/// Какой вариант читается лучше, и вам больше нравится?
