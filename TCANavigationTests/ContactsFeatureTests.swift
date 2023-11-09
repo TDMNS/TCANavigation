@@ -63,17 +63,14 @@ final class ContactsFeatureTests: XCTestCase {
             )) {
             ContactsFeature()
         }
-        /// Заметили? Повторение функционала
+        
         await store.send(.deleteButtonTapped(id: UUID(1))) {
-            $0.destination = .alert(
-                AlertState {
-                    TextState("Are you shure?")
-                } actions: {
-                    ButtonState(role: .destructive, action: .confirmDeletion(id: UUID(1))) {
-                        TextState("Delete")
-                    }
-                }
-            )
+            $0.destination = .alert(.deleteConfirmation(id: UUID(1)))
+        }
+        
+        await store.send(.destination(.presented(.alert(.confirmDeletion(id: UUID(1)))))) {
+            $0.contacts.remove(id: UUID(1))
+            $0.destination = nil
         }
     }
 }
