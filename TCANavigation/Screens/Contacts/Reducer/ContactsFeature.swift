@@ -41,12 +41,16 @@ struct ContactsFeature: Reducer {
             case let .destination(.presented(.alert(.confirmDeletion(id: id)))):
                 state.contacts.remove(id: id)
                 return .none
+            case let .deleteButtonTapped(id: id):
+                state.destination = .alert(.deleteConfirmation(id: id))
+                return .none
+            case let .path(.element(id: _, action: .delegate(.saveContact(contact)))):
+                guard let index = state.contacts.index(id: contact.id) else { return .none }
+                state.contacts[index] = Contact(id: contact.id, name: contact.name)
+                return .none
             case .destination:
                 return .none
             case .path:
-                return .none
-            case let .deleteButtonTapped(id: id):
-                state.destination = .alert(.deleteConfirmation(id: id))
                 return .none
             }
         }
