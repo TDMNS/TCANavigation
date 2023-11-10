@@ -18,7 +18,7 @@ struct ContactsFeature: Reducer {
     enum Action: Equatable {
         case addButtonTapped
         case destination(PresentationAction<Destination.Action>)
-        case deleteButtonTapped(id: Contact.ID)
+        case deleteButtonTapped(contact: Contact)
         case path(StackAction<ContactDetailFeature.State, ContactDetailFeature.Action>)
         enum Alert: Equatable {
             case confirmDeletion(id: Contact.ID)
@@ -43,8 +43,8 @@ struct ContactsFeature: Reducer {
                 state.contacts.remove(id: id)
                 commitContactData(using: state.contacts.elements)
                 return .none
-            case let .deleteButtonTapped(id: id):
-                state.destination = .alert(.deleteConfirmation(id: id))
+            case let .deleteButtonTapped(contact: contact):
+                state.destination = .alert(.deleteConfirmation(contact: contact))
                 return .none
             case let .path(.element(id: _, action: .delegate(.saveContact(contact)))):
                 guard let index = state.contacts.index(id: contact.id) else { return .none }
@@ -92,12 +92,12 @@ extension ContactsFeature {
 }
 
 extension AlertState where Action == ContactsFeature.Action.Alert {
-    static func deleteConfirmation(id: UUID) -> Self {
+    static func deleteConfirmation(contact: Contact) -> Self {
         Self {
-            TextState("Are you shure?")
+            TextState("Вы уверены что вы хотите удалить контакт с именем \(contact.name)?")
         } actions: {
-            ButtonState(role: .destructive, action: .confirmDeletion(id: id)) {
-                TextState("Delete")
+            ButtonState(role: .destructive, action: .confirmDeletion(id: contact.id)) {
+                TextState("Удалить")
             }
         }
     }

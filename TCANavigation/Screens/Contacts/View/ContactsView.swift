@@ -38,7 +38,7 @@ struct ContactsView: View {
                                 Spacer()
                                 
                                 Button {
-                                    viewStore.send(.deleteButtonTapped(id: contact.id))
+                                    viewStore.send(.deleteButtonTapped(contact: contact))
                                 } label: {
                                     Image(systemName: "trash")
                                         .foregroundStyle(.red)
