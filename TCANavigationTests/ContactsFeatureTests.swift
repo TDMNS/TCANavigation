@@ -29,9 +29,7 @@ final class ContactsFeatureTests: XCTestCase {
         }
         
         await store.send(.destination(.presented(.addContact(.saveButtonTapped))))
-        await store.receive(.destination(.presented(.addContact(.delegate(.saveContact(Contact(id: UUID(0), name: "Эвелина"))))))) {
-            $0.contacts = [Contact(id: UUID(0), name: "Эвелина")]
-        }
+        await store.receive(.destination(.presented(.addContact(.delegate(.saveContact(Contact(id: UUID(0), name: "Эвелина")))))))
         await store.receive(.destination(.dismiss)) { $0.destination = nil }
     }
     
@@ -48,6 +46,7 @@ final class ContactsFeatureTests: XCTestCase {
         await store.send(.destination(.presented(.addContact(.saveButtonTapped))))
         await store.skipReceivedActions()
         store.assert {
+            $0.contacts.removeAll()
             $0.contacts = [Contact(id: UUID(0), name: "Эвелина")]
             $0.destination = nil
         }
@@ -64,8 +63,8 @@ final class ContactsFeatureTests: XCTestCase {
             ContactsFeature()
         }
         
-        await store.send(.deleteButtonTapped(id: UUID(1))) {
-            $0.destination = .alert(.deleteConfirmation(id: UUID(1)))
+        await store.send(.deleteButtonTapped(contact: Contact(id: UUID(1), name: "Аркадий"))) {
+            $0.destination = .alert(.deleteConfirmation(contact: Contact(id: UUID(1), name: "Аркадий")))
         }
         
         await store.send(.destination(.presented(.alert(.confirmDeletion(id: UUID(1)))))) {

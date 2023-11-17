@@ -24,6 +24,17 @@ struct ContactDetailView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Form {
+                if viewStore.isTextFieldEditable {
+                    TextField("Имя", text: viewStore.binding(get: \.contact.name, send: { .setName($0) }))
+                    Button("Сохранить") {
+                        viewStore.send(.saveButtonTapped)
+                    }
+                } else {
+                    Text("Вы можете отредактировать имя контакта нажав на кнопку \"Редактировать\"")
+                    Button("Редактировать") {
+                        viewStore.send(.editButtonTapped)
+                    }
+                }
             }
             .navigationBarTitle(viewStore.contact.name)
         }

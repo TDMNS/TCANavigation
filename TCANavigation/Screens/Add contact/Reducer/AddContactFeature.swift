@@ -32,6 +32,7 @@ struct AddContactFeature: Reducer {
             return .none
         case .saveButtonTapped:
             return .run { [contact = state.contact] send in
+                guard !contact.name.isEmpty else { return }
                 await send(.delegate(.saveContact(contact)))
                 await dismiss()
             }

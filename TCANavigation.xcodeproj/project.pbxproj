@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4820F5462AFE7D8600EC2643 /* ExtensionURLContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4820F5452AFE7D8600EC2643 /* ExtensionURLContacts.swift */; };
+		4820F5482AFE7DC600EC2643 /* SharedContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4820F5472AFE7DC600EC2643 /* SharedContacts.swift */; };
 		48D1B0F32AFB9F17005DDD82 /* TCANavigationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B0F22AFB9F17005DDD82 /* TCANavigationApp.swift */; };
 		48D1B0F52AFB9F17005DDD82 /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1B0F42AFB9F17005DDD82 /* ContactsView.swift */; };
 		48D1B0F72AFB9F18005DDD82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48D1B0F62AFB9F18005DDD82 /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4820F5452AFE7D8600EC2643 /* ExtensionURLContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURLContacts.swift; sourceTree = "<group>"; };
+		4820F5472AFE7DC600EC2643 /* SharedContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContacts.swift; sourceTree = "<group>"; };
 		48D1B0EF2AFB9F17005DDD82 /* TCANavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCANavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48D1B0F22AFB9F17005DDD82 /* TCANavigationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCANavigationApp.swift; sourceTree = "<group>"; };
 		48D1B0F42AFB9F17005DDD82 /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
@@ -66,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4820F5442AFE7D5B00EC2643 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4820F5452AFE7D8600EC2643 /* ExtensionURLContacts.swift */,
+				4820F5472AFE7DC600EC2643 /* SharedContacts.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		48D1B0E62AFB9F17005DDD82 = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +138,7 @@
 				48D1B10A2AFBA063005DDD82 /* Model */,
 				48D1B1032AFB9F9E005DDD82 /* View */,
 				48D1B1042AFB9FA4005DDD82 /* Reducer */,
+				4820F5442AFE7D5B00EC2643 /* Extensions */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -328,8 +342,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4820F5482AFE7DC600EC2643 /* SharedContacts.swift in Sources */,
 				48D1B10C2AFBA07D005DDD82 /* Contact.swift in Sources */,
 				48D1B1112AFBB7BB005DDD82 /* AddContactFeature.swift in Sources */,
+				4820F5462AFE7D8600EC2643 /* ExtensionURLContacts.swift in Sources */,
 				48D1B0F52AFB9F17005DDD82 /* ContactsView.swift in Sources */,
 				48D1B1132AFBB8EA005DDD82 /* AddContactView.swift in Sources */,
 				48D1B13A2AFCFDDB005DDD82 /* ContactDetailView.swift in Sources */,
